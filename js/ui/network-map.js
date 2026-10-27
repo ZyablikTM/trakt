@@ -68,6 +68,7 @@ export function initNetworkMap(svg, { store, i18n }) {
   let drawAnim = null;
   let routeKey = ''; // "from>to" уже нарисованного маршрута
   let pickStep = 'from'; // что установит следующий клик
+  let writing = false; // идёт запись в стор из pick()
 
   const px = (n) => n * k;
   const pos = (c) => ({ x: c.x, y: c.y * stretch });
@@ -244,14 +245,21 @@ export function initNetworkMap(svg, { store, i18n }) {
   }
 
   // ── выбор города ──
+  // Запись в стор из самой карты: подписка отличает её от внешних изменений (селекты B7).
+  function writeFromMap(patch) {
+    writing = true;
+    try { store.set(patch); } finally { writing = false; }
+  }
+
   function pick(id) {
-    const { from } = selection();
+    const { from, to } = selection();
     if (pickStep === 'from') {
-      store.set({ from: id });
+      if (id === to) return; // совпал бы с пунктом назначения: игнорируем, шаг не меняется
+      writeFromMap({ from: id });
       pickStep = 'to';
     } else {
       if (id === from) return; // тот же город дважды игнорируем
-      store.set({ to: id });
+      writeFromMap({ to: id });
       pickStep = 'from';
     }
   }
@@ -273,6 +281,7 @@ export function initNetworkMap(svg, { store, i18n }) {
   // ── подписки ──
   const offStore = store.subscribe((s, prev) => {
     if (s.from === prev.from && s.to === prev.to) return;
+    if (!writing) pickStep = 'from'; // from/to изменили снаружи: следующий клик начинает выбор заново
     markNodes();
     placeLabels();
     drawRoute({ animate: true });

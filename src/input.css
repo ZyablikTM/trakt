@@ -459,14 +459,125 @@ html[lang="en"] .lang-toggle [data-lang="en"] {
   }
 }
 
-/* схема сети: наполняется в B6, ниже — чёрная панель калькулятора (B7) */
+/* схема сети (js/ui/network-map.js): высота задаётся viewBox, размеры элементов считает JS */
 .network {
   display: block;
   width: 100%;
   height: auto;
   margin-top: 1.5rem;
-  aspect-ratio: 1000 / 420;
   overflow: visible;
+}
+
+.map-link {
+  stroke: var(--ink);
+  stroke-opacity: 0.15;
+}
+
+.route {
+  stroke: var(--accent);
+  stroke-linecap: butt;
+  stroke-dasharray: var(--dash, 6) var(--dash, 6);
+}
+
+.route.is-empty {
+  display: none;
+}
+
+.route.is-flowing {
+  animation: route-flow 0.9s linear infinite;
+}
+
+@keyframes route-flow {
+  to {
+    stroke-dashoffset: calc(var(--dash, 6) * -2);
+  }
+}
+
+.node {
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.node .dot {
+  fill: var(--ink);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    fill var(--dur-fast) linear,
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.node:hover .dot {
+  transform: scale(1.5);
+}
+
+.node .ring {
+  stroke: var(--ink);
+  opacity: 0;
+}
+
+.node.is-from .ring,
+.node.is-to .ring {
+  opacity: 1;
+}
+
+.node.is-to .dot {
+  fill: var(--accent);
+}
+
+.node.is-to .ring {
+  stroke: var(--accent);
+}
+
+.node .focus-ring {
+  stroke: var(--accent-ink);
+  opacity: 0;
+}
+
+.node:focus-visible .focus-ring {
+  opacity: 1;
+}
+
+.map-label {
+  fill: var(--ink);
+  font-family: var(--font);
+  font-weight: 600;
+  stroke: var(--bg);
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) linear;
+}
+
+.node.is-from .map-label,
+.node.is-to .map-label {
+  font-weight: 800;
+}
+
+.node.is-to .map-label {
+  fill: var(--accent-ink);
+}
+
+/* скрытые из-за тесноты подписи возвращаются при наведении и фокусе */
+.map-label.is-off {
+  opacity: 0;
+}
+
+.node:hover .map-label.is-off,
+.node:focus-visible .map-label.is-off {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route.is-flowing {
+    animation: none;
+  }
+
+  .node .dot,
+  .map-label {
+    transition: none;
+  }
 }
 
 .calc-panel {

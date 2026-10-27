@@ -24,6 +24,7 @@ export default {
     numbers: { index: "05 · Company", title: "The company in numbers" },
     order: { index: "06 · Request", title: "Send a request" },
   },
+  map: { label: "Network map: pick a departure city and a destination city" },
   footer: {
     note: "Demo project. Prices are illustrative.",
     dev: "Built by",

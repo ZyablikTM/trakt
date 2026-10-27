@@ -6,7 +6,7 @@
   "scripts": {
     "build:css": "tailwindcss -i src/input.css -o assets/css/styles.css --minify",
     "watch:css": "tailwindcss -i src/input.css -o assets/css/styles.css --watch",
-    "test": "node --test tests/"
+    "test": "node --test \"tests/**/*.test.js\""
   },
   "devDependencies": {
     "@tailwindcss/cli": "4.3.3"

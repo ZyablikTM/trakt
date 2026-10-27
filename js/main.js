@@ -4,11 +4,13 @@ import { initReveal } from './lib/reveal.js';
 import { i18n, appStore } from './state.js';
 import { initHeader } from './ui/header.js';
 import { initNetworkMap } from './ui/network-map.js';
+import { initCalcPanel } from './ui/calc-panel.js';
 
 function boot() {
   applyI18n(document, i18n);
   initHeader(document);
   initNetworkMap(document.getElementById('network'), { store: appStore, i18n });
+  initCalcPanel(document.getElementById('calc-panel'), { store: appStore, i18n });
 
   // Последние шаги: класс .js включает скрытое состояние [data-reveal].
   // Если код выше упадёт, класс не появится и контент останется видимым.

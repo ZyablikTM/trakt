@@ -68,9 +68,17 @@
 
       <section id="breakdown" class="pb-16 md:pb-24">
         <div class="wrap">
-          <div class="sec-head" data-reveal>
-            <p class="sec-index" data-i18n="sections.breakdown.index">02 · Расчёт</p>
-            <h2 class="sec-title" data-i18n="sections.breakdown.title">Из чего складывается цена</h2>
+          <!-- ≥1024 px: слева заголовок и пояснение, справа таблица (4 + 8 колонок) -->
+          <div class="bd-grid">
+            <div class="bd-side">
+              <div class="sec-head" data-reveal>
+                <p class="sec-index" data-i18n="sections.breakdown.index">02 · Расчёт</p>
+                <h2 class="sec-title" data-i18n="sections.breakdown.title">Из чего складывается цена</h2>
+              </div>
+              <p class="bd-lead" data-i18n="breakdown.lead">Цена складывается из перевозки и выбранных опций. Каждая строка считается по открытой формуле: включайте опции и сразу видите, как меняется итог — в таблице и в калькуляторе наверху.</p>
+              <p class="bd-note" data-i18n="breakdown.note">Расстояние считается по дорогам, итог округляется до 10 ₽. Все ставки условные.</p>
+            </div>
+            <div id="breakdown-table" class="bd-main"></div>
           </div>
         </div>
       </section>

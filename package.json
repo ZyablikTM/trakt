@@ -1,0 +1,14 @@
+{
+  "name": "demo-2-trakt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:css": "tailwindcss -i src/input.css -o assets/css/styles.css --minify",
+    "watch:css": "tailwindcss -i src/input.css -o assets/css/styles.css --watch",
+    "test": "node --test tests/"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.3"
+  }
+}

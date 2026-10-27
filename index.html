@@ -22,12 +22,12 @@
 <body>
   <div class="grid-layer" aria-hidden="true"></div>
 
-  <a href="#calc" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-white focus:outline-white" data-i18n="nav.skip">К содержимому</a>
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-white focus:outline-white" data-i18n="nav.skip">К содержимому</a>
 
   <div class="page">
     <header class="sticky top-0 z-40 border-b-[3px] border-ink bg-bg">
       <div class="wrap flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 md:flex-nowrap md:py-3">
-        <a href="#calc" class="inline-flex items-baseline text-lg font-black leading-none tracking-[-0.03em] no-underline md:text-xl" aria-label="ТРАКТ">
+        <a href="#calc" class="inline-flex items-baseline text-lg font-black leading-none tracking-[-0.03em] no-underline md:text-xl">
           <span class="logo-mark" aria-hidden="true"></span><span data-i18n="brand.name">ТРАКТ</span>
         </a>
 
@@ -44,7 +44,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="main" tabindex="-1">
       <section id="calc" class="pb-16 pt-12 md:pb-24 md:pt-20">
         <div class="wrap">
           <div class="sec-head">

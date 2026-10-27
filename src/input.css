@@ -108,6 +108,10 @@
     outline-color: #fff;
   }
 
+  main:focus {
+    outline: none;
+  }
+
   section[id] {
     scroll-margin-top: 6.5rem;
   }

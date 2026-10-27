@@ -24,6 +24,23 @@ test('storage(null) is memory-only', () => {
   s.set('k', [1, 2]);
   assert.deepEqual(s.get('k', null), [1, 2]);
 });
+test('createStorage() does not throw when globalThis.localStorage getter throws', () => {
+  const orig = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
+  Object.defineProperty(globalThis, 'localStorage', {
+    configurable: true,
+    get() { throw new Error('SecurityError'); },
+  });
+  try {
+    let s;
+    assert.doesNotThrow(() => { s = createStorage(); });
+    s.set('k', { a: 1 });
+    assert.deepEqual(s.get('k', null), { a: 1 });
+    assert.equal(s.get('missing', 'fb'), 'fb');
+  } finally {
+    if (orig) Object.defineProperty(globalThis, 'localStorage', orig);
+    else delete globalThis.localStorage;
+  }
+});
 test('storage round-trips through a working backend', () => {
   const m = new Map();
   const s = createStorage({ getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, v) });

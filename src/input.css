@@ -108,7 +108,8 @@
     outline-color: #fff;
   }
 
-  main:focus {
+  main:focus,
+  section[id]:focus {
     outline: none;
   }
 
@@ -157,7 +158,9 @@
 /* ──────────────────────────────────────────────
    Появление при прокрутке
    ────────────────────────────────────────────── */
-[data-reveal] {
+/* Скрытое состояние включается только классом .js (ставится в main.js последним шагом),
+   поэтому при сбое скриптов контент остаётся видимым. */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
   transition:
@@ -165,13 +168,13 @@
     transform var(--dur) var(--ease-out);
 }
 
-[data-reveal].is-visible {
+.js [data-reveal].is-visible {
   opacity: 1;
   transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
+  .js [data-reveal] {
     opacity: 1;
     transform: none;
     transition: none;
@@ -196,6 +199,130 @@
   background: var(--accent);
   margin-right: 0.45em;
   flex: none;
+}
+
+/* основная навигация: на мобильном (JS) — выпадающая панель под шапкой */
+.site-nav {
+  order: 3;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .site-nav {
+    order: 0;
+    width: auto;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .js .site-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+    width: auto;
+    padding: 0.25rem var(--gutter) 0.75rem;
+    background: var(--bg);
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .js .site-nav.is-open {
+    display: flex;
+  }
+
+  .js .site-nav .nav-link {
+    padding: 0.95rem 0;
+    font-size: 0.875rem;
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+  }
+
+  .js .site-nav .nav-link:first-child {
+    border-top: 0;
+  }
+
+  .js .site-nav .nav-link::after {
+    bottom: 0.5rem;
+    right: auto;
+    width: 2.5rem;
+  }
+}
+
+/* бургер: виден только на мобильном и только при работающем JS */
+.burger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  transition: background-color var(--dur-fast) linear;
+}
+
+.burger:hover {
+  background: rgba(17, 17, 17, 0.06);
+}
+
+.js .burger {
+  display: inline-flex;
+}
+
+@media (min-width: 768px) {
+  .js .burger {
+    display: none;
+  }
+}
+
+.burger-bars,
+.burger-bars::before,
+.burger-bars::after {
+  display: block;
+  width: 20px;
+  height: 3px;
+  background: var(--ink);
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) linear;
+}
+
+.burger-bars {
+  position: relative;
+}
+
+.burger-bars::before,
+.burger-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.burger-bars::before {
+  top: -7px;
+}
+
+.burger-bars::after {
+  top: 7px;
+}
+
+.burger[aria-expanded="true"] .burger-bars {
+  background: transparent;
+}
+
+.burger[aria-expanded="true"] .burger-bars::before {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger[aria-expanded="true"] .burger-bars::after {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ссылки навигации: красное подчёркивание на hover */
@@ -236,7 +363,15 @@
   font-weight: 800;
   letter-spacing: 0.06em;
   line-height: 1;
+  min-height: 44px;
+  align-items: stretch;
   transition: background-color var(--dur-fast) linear;
+}
+
+@media (min-width: 768px) {
+  .lang-toggle {
+    min-height: 0;
+  }
 }
 
 .lang-toggle:hover {
@@ -244,7 +379,9 @@
 }
 
 .lang-toggle span {
-  padding: 0.5rem 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.65rem;
   color: var(--muted);
 }
 
@@ -300,4 +437,40 @@ html[lang="en"] .lang-toggle [data-lang="en"] {
     margin-top: 0.5rem;
     padding-top: 0.5rem;
   }
+}
+
+
+/* ──────────────────────────────────────────────
+   Hero: заголовок, схема сети, панель калькулятора
+   ────────────────────────────────────────────── */
+.hero-title {
+  grid-column: 1 / -1;
+  margin-top: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  font-size: clamp(48px, 8vw, 120px);
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    margin-top: 0.75rem;
+  }
+}
+
+/* схема сети: наполняется в B6, ниже — чёрная панель калькулятора (B7) */
+.network {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+  aspect-ratio: 1000 / 420;
+  overflow: visible;
+}
+
+.calc-panel {
+  min-height: 7rem;
+  background: var(--ink);
+  color: #fff;
 }

@@ -1,9 +1,16 @@
 export default {
   brand: { name: "TRAKT" },
+  meta: {
+    title: "TRAKT — freight across Russia, delivery cost calculator",
+    description: "TRAKT: get the price and transit time for freight across Russia in seconds. Demo project, prices are illustrative.",
+    ogTitle: "TRAKT — freight across Russia",
+    ogDescription: "Delivery cost and transit time calculator, rates, shipment tracking and an online request form. Demo project.",
+  },
   nav: {
     skip: "Skip to content",
     label: "Main navigation",
-    lang: "Switch language to Russian",
+    lang: "RU EN — switch language to Russian",
+    menu: "Menu",
     calc: "Calculator",
     tariffs: "Rates",
     track: "Track",

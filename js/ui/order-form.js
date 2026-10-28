@@ -32,7 +32,7 @@ const TEMPLATE = `
         <textarea id="of-comment" class="of-input of-textarea" name="comment" rows="4" maxlength="1000" data-ph="order.commentPlaceholder"></textarea>
       </div>
 
-      <div class="of-hp" aria-hidden="true">
+      <div class="of-hp" inert>
         <label for="of-hp"><span data-t="order.honeypot"></span></label>
         <input id="of-hp" name="_hp" type="text" tabindex="-1" autocomplete="off">
       </div>
@@ -112,7 +112,7 @@ export function initOrderForm(root, { store, i18n, submitter } = {}) {
   /* ── тексты ───────────────────────────── */
   function renderDone() {
     // Номер в одном неразрывном фрагменте: «TR-2774» не должен переноситься по дефису.
-    const [pre, post = ''] = t('order.doneTitle', { id: '' }).split('');
+    const [pre, post = ''] = t('order.doneTitle', { id: '\u0001' }).split('\u0001');
     const title = q('[data-done-title]');
     const idEl = document.createElement('span');
     idEl.className = 'of-done-id';

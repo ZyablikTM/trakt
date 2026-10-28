@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>ТРАКТ — OG image (служебный файл, не часть сайта)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: "Onest", "Segoe UI", Arial, sans-serif;
+    color: #111; background: #fff; position: relative;
+    background-image:
+      linear-gradient(to right, rgba(17,17,17,.06) 1px, transparent 1px);
+    background-size: 100px 100%;
+  }
+  .bar { position: absolute; left: 0; right: 0; top: 0; height: 12px; background: #111; }
+  .brand { position: absolute; left: 64px; top: 52px; display: flex; align-items: center; font-weight: 900; font-size: 40px; letter-spacing: -0.03em; }
+  .brand i { display: block; width: 26px; height: 26px; background: #E63312; margin-right: 14px; }
+  .idx { position: absolute; right: 64px; top: 62px; font-weight: 600; font-size: 22px; color: #666; letter-spacing: .02em; }
+  h1 { position: absolute; left: 64px; top: 160px; font-weight: 900; font-size: 98px; line-height: .94; letter-spacing: -0.05em; }
+  h1 span { display: block; }
+  h1 .a { color: #E63312; }
+  svg { position: absolute; right: 56px; top: 130px; width: 380px; height: 211px; overflow: visible; }
+  .price { position: absolute; left: 64px; bottom: 40px; display: flex; flex-direction: column; gap: 4px; }
+  .price .lbl { font-weight: 600; font-size: 24px; color: #666; }
+  .price .num { font-weight: 900; font-size: 104px; letter-spacing: -0.04em; line-height: 1; }
+  .price .num small { font-size: 64px; margin-left: 8px; }
+  .foot { position: absolute; right: 64px; bottom: 64px; font-weight: 600; font-size: 22px; color: #666; text-align: right; line-height: 1.35; }
+  .rule { position: absolute; left: 64px; right: 64px; bottom: 200px; height: 3px; background: #111; }
+</style>
+</head>
+<body>
+  <div class="bar"></div>
+  <div class="brand"><i></i>ТРАКТ</div>
+  <div class="idx">Калькулятор доставки</div>
+  <h1><span>Груз по России</span><span class="a">от 2 дней</span></h1>
+  <svg viewBox="0 0 520 290" fill="none">
+    <g stroke="#bdbdbd" stroke-width="3">
+      <path d="M40 40 L110 100 M110 100 L190 60 M110 100 L130 170 M130 170 L150 230 M190 60 L250 100"/>
+      <path d="M250 100 L270 190 M250 100 L330 60 M330 60 L400 90 M400 90 L430 150 M430 150 L490 240"/>
+    </g>
+    <g fill="#fff" stroke="#111" stroke-width="3">
+      <circle cx="40" cy="40" r="8"/><circle cx="190" cy="60" r="8"/><circle cx="130" cy="170" r="8"/>
+      <circle cx="150" cy="230" r="8"/><circle cx="270" cy="190" r="8"/><circle cx="330" cy="60" r="8"/>
+      <circle cx="400" cy="90" r="8"/><circle cx="490" cy="240" r="8"/>
+    </g>
+    <path d="M110 100 L250 100 L430 150" stroke="#E63312" stroke-width="7" stroke-linejoin="miter"/>
+    <path d="M110 100 L250 100" stroke="#E63312" stroke-width="7"/>
+    <rect x="98" y="88" width="24" height="24" fill="#E63312"/>
+    <rect x="418" y="138" width="24" height="24" fill="#111"/>
+    <g font-family="Onest, Arial, sans-serif" font-weight="800" font-size="22" fill="#111">
+      <text x="70" y="140">Москва</text>
+      <text x="360" y="198">Новосибирск</text>
+    </g>
+  </svg>
+  <div class="rule"></div>
+  <div class="price"><span class="lbl">Москва — Новосибирск, от</span><span class="num">14&nbsp;820<small>₽</small></span></div>
+  <div class="foot">Демо-проект<br>Цены условные</div>
+</body>
+</html>

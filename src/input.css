@@ -1232,3 +1232,560 @@ html[lang="en"] .lang-toggle [data-lang="en"] {
     transform: none;
   }
 }
+
+/* ──────────────────────────────────────────────
+   Тарифы (js/ui/tariffs.js)
+   Три колонки с линией сверху: у «Популярного» она 3 px. На мобильном колонки идут одна под другой.
+   ────────────────────────────────────────────── */
+.tf-wrap {
+  margin-top: 2rem;
+}
+
+.tf-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tf-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.25rem 0 2rem;
+  border-top: 1px solid var(--ink);
+}
+
+.tf-col--pop {
+  border-top-width: 3px;
+  padding-top: calc(1.25rem - 2px); /* линия толще на 2 px, содержимое остаётся на одном уровне */
+}
+
+.tf-flag {
+  min-height: 1.1rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.1rem;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.tf-flag::before {
+  content: "";
+  display: none;
+  width: 0.6em;
+  height: 0.6em;
+  margin-right: 0.5em;
+  background: var(--accent);
+}
+
+.tf-col--pop .tf-flag::before {
+  display: inline-block;
+}
+
+.tf-name {
+  margin-top: 0.5rem;
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.tf-speed {
+  margin-top: 1rem;
+}
+
+.tf-speed-num {
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tf-facts {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--ink);
+}
+
+.tf-fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.tf-fact dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tf-fact dd {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.tf-incl-title {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tf-list {
+  margin: 0.75rem 0 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tf-list li {
+  position: relative;
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  line-height: 1.4;
+}
+
+.tf-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.8rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--accent);
+}
+
+.tf-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 56px;
+  margin-top: auto;
+  padding: 0 1.25rem;
+  background: var(--ink);
+  color: #fff;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) linear;
+}
+
+.tf-col--pop .tf-cta {
+  background: var(--accent-ink);
+}
+
+.tf-cta:hover {
+  background: var(--accent-ink);
+}
+
+.tf-col--pop .tf-cta:hover {
+  background: var(--ink);
+}
+
+.tf-cta:focus-visible {
+  outline-color: var(--ink);
+}
+
+.tf-cta-arrow {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.tf-cta:hover .tf-cta-arrow {
+  transform: translateX(6px);
+}
+
+.tf-note {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .tf-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tf-col {
+    padding-right: 1.5rem;
+  }
+
+  .tf-col + .tf-col {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--ink);
+  }
+
+  .tf-col:last-child {
+    padding-right: 0;
+  }
+}
+
+/* планшет: колонки узкие, поэтому подписи фактов идут над значением, а кнопка без стрелки */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .tf-col {
+    padding-right: 1rem;
+  }
+
+  .tf-col + .tf-col {
+    padding-left: 1rem;
+  }
+
+  .tf-fact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+
+  .tf-fact dd {
+    text-align: left;
+  }
+
+  .tf-cta {
+    padding: 0 0.875rem;
+    font-size: 0.9375rem;
+  }
+
+  .tf-cta-arrow {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tf-cta:hover .tf-cta-arrow {
+    transform: none;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   Трекинг (js/ui/tracking-ui.js)
+   Слева форма, справа результат (на ≥1280 px); ниже — друг под другом, с отступом по заголовку.
+   ────────────────────────────────────────────── */
+.tr-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .tr-grid {
+    margin-left: 25%; /* 3 из 12 колонок: выравнивание по заголовку секции */
+  }
+}
+
+@media (min-width: 1280px) {
+  .tr-grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+    gap: 3rem;
+    align-items: start;
+  }
+}
+
+.tr-form-col,
+.tr-result-col {
+  min-width: 0;
+}
+
+.tr-lead {
+  max-width: 34rem;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.tr-form {
+  margin-top: 1.5rem;
+}
+
+.tr-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tr-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tr-input {
+  flex: 1 1 13rem;
+  min-width: 0;
+  min-height: 60px;
+  padding: 0.4rem 1rem;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  font-size: 1.25rem; /* ≥16px: iOS не приближает страницу при фокусе */
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.tr-input::placeholder {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.tr-input[aria-invalid="true"] {
+  border-color: var(--accent-ink);
+}
+
+.tr-submit {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: 60px;
+  padding: 0 1.5rem;
+  border: 0;
+  background: var(--ink);
+  color: #fff;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  transition: background-color var(--dur-fast) linear;
+}
+
+.tr-submit:hover {
+  background: var(--accent-ink);
+}
+
+.tr-submit:focus-visible {
+  outline-color: var(--ink);
+}
+
+.tr-submit-arrow {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.tr-submit:hover .tr-submit-arrow {
+  transform: translateX(6px);
+}
+
+@media (min-width: 640px) {
+  .tr-submit {
+    flex: none;
+  }
+}
+
+.tr-format {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.tr-err {
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--accent-ink);
+}
+
+.tr-err::before {
+  content: "▲ ";
+  font-size: 0.65em;
+  vertical-align: 0.1em;
+}
+
+.tr-err[hidden] {
+  display: none;
+}
+
+.tr-hint {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.tr-hint:hover {
+  text-decoration-color: var(--ink);
+}
+
+/* результат */
+.tr-empty {
+  padding: 1.25rem 1.5rem;
+  border: 1px dashed var(--muted);
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.tr-card {
+  border-top: 3px solid var(--ink);
+  padding-top: 0.75rem;
+}
+
+.tr-code {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.tr-route {
+  margin-top: 0.5rem;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.tr-route-arrow {
+  color: var(--accent-ink);
+}
+
+.tr-status {
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+.tr-steps {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tr-step {
+  --lane: 22px;
+  position: relative;
+  padding: 0 0 1.6rem calc(var(--lane) + 1rem);
+  min-height: 3rem;
+}
+
+.tr-step:last-child {
+  padding-bottom: 0;
+}
+
+.tr-dot {
+  position: absolute;
+  left: 4px; /* центр квадрата 14 px на оси линии (11 px) */
+  top: 0.35rem;
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+}
+
+.is-done .tr-dot {
+  background: var(--accent);
+}
+
+.is-future .tr-dot {
+  border: 2px solid #9a9a9a;
+  background: var(--bg);
+}
+
+.is-current .tr-dot {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* линия от этой точки к следующей: сплошная красная, если следующий этап пройден, иначе серая пунктирная */
+.tr-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: calc(0.35rem + 14px + 4px);
+  bottom: calc(-0.35rem + 4px);
+  border-left: 2px dashed #9a9a9a;
+}
+
+.tr-step.is-link-done::after {
+  border-left: 2px solid var(--accent);
+}
+
+.tr-step-body {
+  display: block;
+}
+
+.tr-stage {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.is-future .tr-stage {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tr-now {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.45rem;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  vertical-align: 0.15em;
+}
+
+.tr-date {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* последовательное появление этапов: 120 мс на шаг */
+.tr-card.is-anim .tr-route,
+.tr-card.is-anim .tr-status {
+  animation: tr-in 420ms var(--ease-out) backwards;
+}
+
+.tr-card.is-anim .tr-step {
+  animation: tr-in 420ms var(--ease-out) backwards;
+  animation-delay: calc(200ms + var(--i) * 120ms);
+}
+
+@keyframes tr-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-card.is-anim .tr-route,
+  .tr-card.is-anim .tr-status,
+  .tr-card.is-anim .tr-step {
+    animation: none;
+  }
+
+  .tr-submit:hover .tr-submit-arrow {
+    transform: none;
+  }
+}

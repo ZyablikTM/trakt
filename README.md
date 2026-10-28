@@ -12,11 +12,11 @@
 python -m http.server 5500
 ```
 
-Откройте в браузере `http://localhost:5500/portfolio/demo-2/`. Просто двойной клик по `index.html` не подойдёт: браузер блокирует ES-модули с `file://`.
+Откройте в браузере `http://localhost:5500/`. Просто двойной клик по `index.html` не подойдёт: браузер блокирует ES-модули с `file://`.
 
 ## Если правите стили
 
-Нужен Node.js. В папке `portfolio/demo-2/`:
+Нужен Node.js. В корне репозитория:
 
 ```bash
 npm i
@@ -41,29 +41,27 @@ npm test            # тесты расчёта цены, отслеживани
 
 По умолчанию отправка имитируется: форма показывает номер заявки, но данные никуда не уходят. Чтобы заявки приходили к вам, откройте `js/data/author.js` и впишите адрес в `submitEndpoint`, например ссылку формы Formspree: `submitEndpoint: "https://formspree.io/f/xxxxxxx"`. Форма отправит туда JSON методом POST. Не кладите в этот файл секретные ключи: он виден всем посетителям. Запрос уходит без таймаута: если сервис не отвечает, форма будет ждать ответа браузера.
 
-## Публикация на GitHub Pages
+## Публикация
 
-1. Загрузите репозиторий на GitHub.
-2. Settings → Pages → Source: «Deploy from a branch», ветка `main`, папка `/ (root)`.
-3. Через минуту-две демо будет доступно по адресу вида `https://<user>.github.io/<repo>/portfolio/demo-2/`. Все пути в проекте относительные, поэтому оно работает из подпапки.
+Сайт опубликован на GitHub Pages: **https://zyabliktm.github.io/trakt/**
 
-## Что заменить перед публикацией
+- Pages собирает сайт из ветки `main`, папка `/ (root)` (Settings → Pages). После каждого `git push` сайт обновляется через минуту-две.
+- Все пути относительные, сборки на сервере нет: собранный CSS (`assets/css/styles.css`) хранится в репозитории. Если правили стили, перед коммитом выполните `npm run build:css`.
+- Сайт закрыт от поисковиков (`<meta name="robots" content="noindex, nofollow">` в `index.html`): он открывается только у тех, кому вы дали ссылку. Чтобы разрешить индексацию, удалите эту строку.
 
-В репозитории стоит заглушка `https://example.github.io/portfolio`. Она нужна для ссылок и превью в соцсетях и мессенджерах. Её надо заменить на реальный адрес в тегах `index.html`. Правило: адрес + `/demo-2/` должен давать адрес, по которому открывается демо. Если вы публикуете, как описано выше, то это `https://<user>.github.io/<repo>/portfolio`. Если у вас другой адрес (свой домен, Vercel, отдельный репозиторий только для этого демо), подставьте его.
+## Адрес сайта в превью
 
-В `index.html`, в `<head>` две строки (теги `og:`):
-- `<meta property="og:url" content="https://example.github.io/portfolio/demo-2/">`
-- `<meta property="og:image" content="https://example.github.io/portfolio/demo-2/assets/img/og.png">`
+Превью ссылки в Telegram, VK и на биржах берётся из двух тегов в `<head>` файла `index.html`:
+- `<meta property="og:url" content="https://zyabliktm.github.io/trakt/">`
+- `<meta property="og:image" content="https://zyabliktm.github.io/trakt/assets/img/og.png">`
 
-Ссылка на картинку превью должна быть абсолютной (с `https://`), иначе соцсети её не покажут.
-
-В `js/data/author.js` есть поле `siteUrl` с тем же адресом. Сайт его не читает, это справочное значение: превью от него не зависит, решают только теги в `index.html`.
+Если адрес сайта изменится (свой домен, Vercel, переименование репозитория), поменяйте оба тега. Ссылка на картинку должна быть абсолютной (с `https://`). Поле `siteUrl` в `js/data/author.js` сайт не читает — это справочная запись того же адреса.
 
 Заодно замените в `js/data/author.js` имя, Telegram и ссылку на свои.
 
 ## Превью-картинка
 
-`assets/img/og.png` (1200×630) собрана из `og.html`, служебной страницы, на сайт она не ссылается. Если меняете оформление превью, поправьте `og.html` и снова сделайте снимок (из папки `portfolio/demo-2/`, Edge):
+`assets/img/og.png` (1200×630) собрана из `og.html`, служебной страницы, на сайт она не ссылается. Если меняете оформление превью, поправьте `og.html` и снова сделайте снимок (из корня репозитория, Edge):
 
 ```bash
 "/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 --virtual-time-budget=5000 --screenshot="$(pwd -W)/assets/img/og.png" "file:///$(pwd -W)/og.html"

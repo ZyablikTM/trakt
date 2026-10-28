@@ -5,7 +5,7 @@ export default {
   name: "Ваше имя",
   telegram: "@username",
   url: "#",
-  siteUrl: "https://example.github.io/portfolio",
+  siteUrl: "https://zyabliktm.github.io/trakt",
   // URL для отправки заявок (Formspree, webhook). null — отправка имитируется.
   submitEndpoint: null,
 };

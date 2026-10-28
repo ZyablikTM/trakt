@@ -8,7 +8,6 @@ import { getQuote } from '../state.js';
 const DASH = '—';
 const OPTION_KEYS = ['insurance', 'packing', 'pickup', 'delivery'];
 
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 function optionRow(key) {
   const extra = key === 'insurance'

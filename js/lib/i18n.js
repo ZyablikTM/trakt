@@ -9,7 +9,7 @@ const resolve = (dict, key) => {
 
 export function createI18n({ dicts, storage, defaultLang = 'ru', key = 'lang' }) {
   const saved = storage ? storage.get(key, null) : null;
-  let current = typeof saved === 'string' && dicts[saved] ? saved : defaultLang;
+  let current = typeof saved === 'string' && Object.hasOwn(dicts, saved) ? saved : defaultLang;
   const listeners = new Set();
 
   const t = (k, params) => {
@@ -23,7 +23,7 @@ export function createI18n({ dicts, storage, defaultLang = 'ru', key = 'lang' })
   return {
     lang: () => current,
     setLang(l) {
-      if (!dicts[l]) return;
+      if (!Object.hasOwn(dicts, l)) return;
       current = l;
       if (storage) storage.set(key, l);
       listeners.forEach((fn) => fn(l));

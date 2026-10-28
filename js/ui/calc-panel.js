@@ -160,7 +160,6 @@ export function initCalcPanel(root, { store, i18n }) {
 
   // ── вывод результата ──
   let lastTotal = null; // последняя валидная цена: от неё табло тикает после «—»
-  let lastQuote = null;
 
   // Подгон размера цены под ширину красной ячейки: меряем итоговый текст невидимой копией
   // (в самом табло текст во время твина меняется) и ужимаем шрифт, если не помещается.
@@ -183,7 +182,6 @@ export function initCalcPanel(root, { store, i18n }) {
 
   function renderResult({ immediate = false } = {}) {
     const quote = getQuote(store.get());
-    lastQuote = quote;
     const l = lang();
     const fmt = (v) => formatPrice(v, l);
     const wasError = priceCell.classList.contains('is-error');
@@ -320,6 +318,9 @@ export function initCalcPanel(root, { store, i18n }) {
     ro = new ResizeObserver(() => fitPrice());
     ro.observe(priceCell);
   }
+
+  // шрифты могут догрузиться после первого подгона: пересчитать
+  document.fonts?.ready?.then(() => fitPrice());
 
   // ── первый показ ──
   renderStaticTexts();

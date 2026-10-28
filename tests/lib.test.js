@@ -68,6 +68,17 @@ test('i18n persists lang and notifies listeners', () => {
   const j = createI18n({ dicts: { ru: { a: 'а' }, en: { a: 'a' } }, storage });
   assert.equal(j.lang(), 'en');
 });
+test('i18n ignores an inherited key (constructor) in storage', () => {
+  const storage = createStorage(null);
+  storage.set('lang', 'constructor');
+  const i = createI18n({ dicts: { ru: { a: 'а' }, en: { a: 'a' } }, storage });
+  assert.equal(i.lang(), 'ru');
+});
+test('i18n setLang ignores an inherited key (toString)', () => {
+  const i = createI18n({ dicts: { ru: { a: 'а' }, en: { a: 'a' } }, storage: createStorage(null) });
+  i.setLang('toString');
+  assert.equal(i.lang(), 'ru');
+});
 test('store notifies only on change', () => {
   const st = createStore({ a: 1 }); let n = 0; st.subscribe(() => n++);
   st.set({ a: 1 }); st.set({ a: 2 }); assert.equal(n, 1);

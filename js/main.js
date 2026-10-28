@@ -8,6 +8,9 @@ import { initCalcPanel } from './ui/calc-panel.js';
 import { initBreakdown } from './ui/breakdown.js';
 import { initTariffs } from './ui/tariffs.js';
 import { initTracking } from './ui/tracking-ui.js';
+import { initCounters } from './ui/counters.js';
+import { initOrderForm } from './ui/order-form.js';
+import { initFooter } from './ui/footer.js';
 
 function boot() {
   applyI18n(document, i18n);
@@ -17,6 +20,9 @@ function boot() {
   initBreakdown(document.getElementById('breakdown-table'), { store: appStore, i18n });
   initTariffs(document.getElementById('tariffs-grid'), { store: appStore, i18n });
   initTracking(document.getElementById('track-ui'), { i18n });
+  initCounters(document.getElementById('numbers-grid'), { i18n });
+  initOrderForm(document.getElementById('order-ui'), { store: appStore, i18n });
+  initFooter(document);
 
   // Последние шаги: класс .js включает скрытое состояние [data-reveal].
   // Если код выше упадёт, класс не появится и контент останется видимым.
